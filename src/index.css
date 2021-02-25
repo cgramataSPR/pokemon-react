@@ -20,13 +20,77 @@ body {
   font-size: 15px;
   font-family: inherit;
 }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-gap: 12px;
+.capitalize {
+  text-transform: capitalize;
 }
-
+.centered-text {
+  text-align: center;
+}
+.grid {
+  border: 50px 0 50px 0;
+  padding: 25px 100px 50px 100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  grid-gap: 30px;
+  background-color: lavender;
+}
 .item {
   min-height: 200px;
-  background-color: #eee;
+  background-color: white;
+  border-radius: 20px;
+}
+.image-container {
+  flex: 1;
+  border: 2px;
+  margin: 10px 0 10px 0;
+}
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: .3rem;
+  outline: 0;
+}
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: .5rem;
+  pointer-events: none;
+}
+.modal-dialog-centered {
+  display: flex;
+  align-items: center;
+  min-height: calc(100% - 1rem);
+}
+.modal-lg, .modal-xl {
+  max-width: 800px;
+}
+.modal-wrapper {
+  background: #fff;
+  width: 80%;
+  max-width: 800px;
+  margin: 4rem auto;
+  transition: all .5s ease;
+}
+.no-bullets {
+  list-style-type: none;
+}
+.poke-card {
+  display: flex;
+}
+.poke-data {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+ul {
+  margin-left: 0;
+  padding-left: 10px;
+}
+.utility-section {
+  background-color: lavender;
 }
