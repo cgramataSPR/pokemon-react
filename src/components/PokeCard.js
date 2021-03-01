@@ -51,7 +51,7 @@ const PokeCard = ({ pokemonSearchUrl }) => {
     return (
         <div className="item centered-text" onClick={() => setModalVisible(!modalVisible)}>
             <img className="image-container" src={pokemonImg} alt="Pic not available..."/>
-            <p className="capitalize">{pokemonData.name}</p>
+            <p className="capitalize">{pokemonData.name} #{pokemonId}</p>
             <PokemonStats 
                 show={modalVisible}
                 pokemonId={pokemonId}
