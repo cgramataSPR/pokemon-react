@@ -56,8 +56,8 @@ function App() {
   return (
     <div className="App">
       <div className="utility-section centered-text">
-        {hasPrev ? (<button className="btn" style={{ backgroundColor: "gray "}} onClick={() => getGeneralPokemon(prevUrl)} >Prev</button>) : ''}
-        {hasNext ? (<button className="btn" style={{ backgroundColor: "gray "}} onClick={() => getGeneralPokemon(nextUrl)} >Next</button>) : ''}
+        <button disabled={!hasPrev} className="btn" style={{ backgroundColor: "gray "}} onClick={() => getGeneralPokemon(prevUrl)} >Prev</button>
+        <button disabled={!hasNext} className="btn" style={{ backgroundColor: "gray "}} onClick={() => getGeneralPokemon(nextUrl)} >Next</button>
       </div>
       <div className="grid">
         {Array.from(pokemonGroup).map((pokemon, index) => (<PokeCard key={pokemon.name} pokemonSearchUrl={pokemon.url}/>))}

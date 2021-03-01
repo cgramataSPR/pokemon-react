@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react'
-import PokemonStats from './Modal/PokemonStats'
-import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css" 
+import PokemonStats from './Modal/PokemonStats'
+import { useState, useEffect } from 'react'
 
 const PokeCard = ({ pokemonSearchUrl }) => {    
 
@@ -29,10 +28,9 @@ const PokeCard = ({ pokemonSearchUrl }) => {
     }
 
     return (
-        <div className="item centered-text">
+        <div className="item centered-text" onClick={() => setModalVisible(!modalVisible)}>
             <img className="image-container" src={pokemonImg} alt="Pic not available..."/>
             <p className="capitalize">{pokemonData.id}. {pokemonData.name}</p>
-            <button className="btn" onClick={() => setModalVisible(!modalVisible)}>More Info</button>
             <PokemonStats show={modalVisible} pokemonData={pokemonData} onClick={closeModal}/>
         </div>
     )

@@ -11,6 +11,7 @@ const PokemonStats = ({ show, pokemonData, onClick }) => {
         {entry.stat.name}: {entry.base_stat}
       </li>
     ));
+    
   const mappedTypes =
     pokemonType &&
     pokemonType.map((entry, index) => <li key={index}>{entry.type.name}</li>);
@@ -23,10 +24,11 @@ const PokemonStats = ({ show, pokemonData, onClick }) => {
       show={show}
     >
       <Modal.Header>
-        <Modal.Title className="capitalize" id="contained-modal-title-vcenter">{pokemonData.name}</Modal.Title>
+        <Modal.Title className="capitalize" id="contained-modal-title-vcenter">
+          {pokemonData.name} #{pokemonData.id}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>ID: {pokemonData.id}</p>
         <p>Stats:</p>
         <ul className="capitalize no-bullets">{mappedStats}</ul>
         <p>Type(s):</p>
