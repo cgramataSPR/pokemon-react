@@ -1,6 +1,7 @@
 import Modal from "react-bootstrap/Modal";
+import { useState, useEffect } from 'react'
 
-const PokemonStats = ({ show, pokemonData, onClick }) => {
+const PokemonStats = ({ show, pokemonId, pokemonData, pokemonStatImg, onClick }) => {
   const pokemonStats = pokemonData.stats;
   const pokemonType = pokemonData.types;
 
@@ -25,20 +26,18 @@ const PokemonStats = ({ show, pokemonData, onClick }) => {
     >
       <Modal.Header>
         <Modal.Title className="capitalize" id="contained-modal-title-vcenter">
-          {pokemonData.name} #{pokemonData.id}
+          {pokemonData.name} #{pokemonId}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <div>
+          <img src={pokemonStatImg} alt="Pic not available..."></img>
+        </div>
         <p>Stats:</p>
         <ul className="capitalize no-bullets">{mappedStats}</ul>
         <p>Type(s):</p>
         <ul className="capitalize no-bullets">{mappedTypes}</ul>
       </Modal.Body>
-      <Modal.Footer>
-        <button className="btn" onClick={() => onClick()}>
-          Close
-        </button>
-      </Modal.Footer>
     </Modal>
   );
 };
