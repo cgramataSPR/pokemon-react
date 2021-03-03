@@ -44,14 +44,11 @@ const PokeCard = ({ pokemonSearchUrl }) => {
         .catch(error => console.log(`Error: ${error}`))
     }
 
-    // const closeModal = () => {
-    //     setModalVisible(!modalVisible)
-    // }
-
     return (
         <div className="item centered-text" onClick={() => setModalVisible(!modalVisible)}>
             <img className="image-container" src={pokemonImg} alt="Pic not available..."/>
-            <p className="capitalize">{pokemonData.name} #{pokemonId}</p>
+            <p>#{pokemonId}</p>
+            <p className="capitalize">{pokemonData.name}</p>
             <PokemonModal 
                 show={modalVisible}
                 pokemonId={pokemonId}
