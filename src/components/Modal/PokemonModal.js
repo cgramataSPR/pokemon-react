@@ -1,7 +1,8 @@
+import BaseStats from "../BaseStats"
 import Modal from "react-bootstrap/Modal";
 import { useState, useEffect } from "react";
 
-const PokemonStats = ({
+const PokemonModal = ({
   show,
   pokemonId,
   pokemonData,
@@ -10,28 +11,6 @@ const PokemonStats = ({
 }) => {
   const pokemonStats = pokemonData.stats;
   const pokemonType = pokemonData.types;
-
-  const mappedStats =
-    pokemonStats &&
-    pokemonStats.map((entry) => (
-      <div className="poke-card">
-        <div className="capitalize flex-child">{entry.stat.name}</div>
-        <div>{entry.base_stat}</div>
-        <div key={entry.stat.name} className="progress flex-child">
-          <div
-            className="progress-bar progress-bar-striped progress-bar-animated"
-            role="progressbar"
-            aria-valuenow={entry.base_stat}
-            aria-valuemin="0"
-            aria-valuemax="200"
-            style={{ width: `${entry.base_stat/2}%` }}
-          ></div>
-        </div>
-      </div>
-      // <li key={entry.stat.name}>
-      //   {entry.stat.name}: {entry.base_stat}
-      // </li>
-    ));
 
   const mappedTypes =
     pokemonType &&
@@ -49,14 +28,13 @@ const PokemonStats = ({
           {pokemonData.name} #{pokemonId}
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body className="poke-card">
+      <Modal.Body className="side-by-side">
         <div>
           <img src={pokemonStatImg} alt="Pic not available..."></img>
         </div>
         <div className="stats-container">
           <h5>Stats:</h5>
-          {mappedStats}
-          {/* <ul className="capitalize no-bullets">{mappedStats}</ul> */}
+          <BaseStats baseStats={pokemonStats}/>
           <p>Type(s):</p>
           <ul className="capitalize no-bullets">{mappedTypes}</ul>
         </div>
@@ -65,4 +43,4 @@ const PokemonStats = ({
   );
 };
 
-export default PokemonStats;
+export default PokemonModal;

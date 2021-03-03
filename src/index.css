@@ -84,16 +84,31 @@ body {
 .no-bullets {
   list-style-type: none;
 }
-.poke-card {
-  display: flex;
-}
 .poke-data {
   margin-left: 5px;
   margin-right: 10px;
 }
+.side-by-side {
+  display: flex;
+}
 .stats-container {
   border: 0 0 0 25px;
-  min-width: 400px;
+  min-width: 350px;
+}
+.stats-name {
+  max-width: 140px;
+  margin: 0 5px 0 0;
+  vertical-align: middle;
+}
+.stats-value {
+  min-width: 30px;
+  margin: 0 15px 0 10px;
+  text-align: right;
+  vertical-align: middle;
+}
+.stats-bar {
+  margin: 0 10px 0 10px;
+  vertical-align: middle;
 }
 ul {
   margin-left: 0;
