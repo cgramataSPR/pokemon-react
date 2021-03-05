@@ -53,7 +53,7 @@ body {
   flex-direction: column;
   width: 1000px;
   pointer-events: auto;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
@@ -91,13 +91,13 @@ body {
 }
 .progress-bar-container {
   width: 150px;
-  padding-top: 6px;
+  padding: 5.6px 0 5.5px 0;
 }
 .side-by-side {
   display: flex;
 }
 .stats-type-container {
-  margin: 0 0 0 15px;
+  margin: 100px 0 0 15px;
   min-width: 375px;
 }
 .stats-name {

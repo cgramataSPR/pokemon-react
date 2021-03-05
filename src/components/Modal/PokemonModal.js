@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 const PokemonModal = ({ show, pokemonId, pokemonData, pokemonStatImg }) => {
   const pokemonStats = pokemonData.stats;
   const pokemonType = pokemonData.types;
+  const pokemonAbilities = pokemonData.abilities;
   const typeColorData = require("../../Configuration/pokemon_type_color.json");
 
   console.log(typeColorData["normal"]);
@@ -20,6 +21,10 @@ const PokemonModal = ({ show, pokemonId, pokemonData, pokemonStatImg }) => {
         {entry.type.name}
       </li>
     ));
+
+  const mappedAbilities = pokemonAbilities && pokemonAbilities.map((entry) => (
+    <li>{entry.ability.name}</li>
+  ))
 
   return (
     <Modal
@@ -52,10 +57,11 @@ const PokemonModal = ({ show, pokemonId, pokemonData, pokemonStatImg }) => {
             <h5>Stats:</h5>
             <BaseStats baseStats={pokemonStats} />
           </div>
-          {/* <div>
-            <h5>Type(s):</h5>
-            <ul className="capitalize no-bullets">{mappedTypes}</ul>
-          </div> */}
+          <div>
+            <ul>
+              {mappedAbilities}
+            </ul>
+          </div>
         </div>
       </Modal.Body>
     </Modal>
