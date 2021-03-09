@@ -60,7 +60,7 @@ function App() {
         <button disabled={!hasNext} className="btn" style={{ backgroundColor: "gray "}} onClick={() => getGeneralPokemon(nextUrl)} >Next</button>
       </div>
       <div className="grid">
-        {Array.from(pokemonGroup).map((pokemon, index) => (<PokeCard key={pokemon.name} pokemonSearchUrl={pokemon.url}/>))}
+        {Array.from(pokemonGroup).map((pokemon) => (<PokeCard key={pokemon.name} pokemonSearchUrl={pokemon.url}/>))}
       </div>
     </div>
   );

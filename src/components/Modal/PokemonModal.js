@@ -2,13 +2,17 @@ import BaseStats from "../BaseStats";
 import Modal from "react-bootstrap/Modal";
 import { useState, useEffect } from "react";
 
-const PokemonModal = ({ show, pokemonId, pokemonData, pokemonStatImg }) => {
+const PokemonModal = ({
+  showModal,
+  pokemonId,
+  pokemonData,
+  pokemonStatImg,
+  handleClose,
+}) => {
   const pokemonStats = pokemonData.stats;
   const pokemonType = pokemonData.types;
   const pokemonAbilities = pokemonData.abilities;
   const typeColorData = require("../../Configuration/pokemon_type_color.json");
-
-  console.log(typeColorData["normal"]);
 
   const mappedTypes =
     pokemonType &&
@@ -22,18 +26,22 @@ const PokemonModal = ({ show, pokemonId, pokemonData, pokemonStatImg }) => {
       </li>
     ));
 
-  const mappedAbilities = pokemonAbilities && pokemonAbilities.map((entry) => (
-    <li>{entry.ability.name}</li>
-  ))
+  const mappedAbilities =
+    pokemonAbilities &&
+    pokemonAbilities.map((entry) => (
+      <li key={entry.ability.name}>{entry.ability.name}</li>
+    ));
 
+  console.log("In Modal -showModal- check: " + showModal )
+  
   return (
     <Modal
+      show={showModal}
+      backdrop="static"
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
-      centered
-      show={show}
     >
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title
           className="capitalize side-by-side"
           id="contained-modal-title-vcenter"
@@ -58,12 +66,16 @@ const PokemonModal = ({ show, pokemonId, pokemonData, pokemonStatImg }) => {
             <BaseStats baseStats={pokemonStats} />
           </div>
           <div>
-            <ul>
-              {mappedAbilities}
-            </ul>
+            <ul>{mappedAbilities}</ul>
           </div>
         </div>
       </Modal.Body>
+      <Modal.Footer>
+        {/*TODO: Figure out how to close modal via button ONLY*/}
+        <button className="btn" onClick={handleClose}>
+          Close
+        </button>
+      </Modal.Footer>
     </Modal>
   );
 };
