@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 import "bootstrap/dist/css/bootstrap.min.css" 
 import PokemonModal from './Modal/PokemonModal'
 import { useState, useEffect } from 'react'

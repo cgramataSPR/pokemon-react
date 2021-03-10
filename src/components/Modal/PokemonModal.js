@@ -1,4 +1,4 @@
-import BaseStats from "../BaseStats";
+import InfoTabs from "../InfoTabs";
 import Modal from "react-bootstrap/Modal";
 
 const PokemonModal = ({
@@ -10,8 +10,11 @@ const PokemonModal = ({
 }) => {
   const pokemonStats = pokemonData.stats;
   const pokemonType = pokemonData.types;
-  const pokemonAbilities = pokemonData.abilities;
   const typeColorData = require("../../Configuration/pokemon_type_color.json");
+  const pokemonAbilitiesObject = pokemonData.abilities;
+  const pokemonAbilityNames =
+    pokemonAbilitiesObject &&
+    Array.from(pokemonAbilitiesObject).map((entry) => entry.ability.name);
 
   const mappedTypes =
     pokemonType &&
@@ -23,12 +26,6 @@ const PokemonModal = ({
       >
         {entry.type.name}
       </li>
-    ));
-
-  const mappedAbilities =
-    pokemonAbilities &&
-    pokemonAbilities.map((entry) => (
-      <li key={entry.ability.name}>{entry.ability.name}</li>
     ));
 
   return (
@@ -58,14 +55,11 @@ const PokemonModal = ({
         <div>
           <img src={pokemonStatImg} alt="Pic not available..."></img>
         </div>
-        <div className="stats-type-container">
-          <div>
-            <h5>Stats:</h5>
-            <BaseStats baseStats={pokemonStats} />
-          </div>
-          <div>
-            <ul>{mappedAbilities}</ul>
-          </div>
+        <div>
+          <InfoTabs
+            baseStats={pokemonStats}
+            abilityNames={pokemonAbilityNames}
+          ></InfoTabs>
         </div>
       </Modal.Body>
       <Modal.Footer>
