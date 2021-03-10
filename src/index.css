@@ -94,6 +94,9 @@ body {
   margin-left: 5px;
   margin-right: 10px;
 }
+.pokemon-card-name {
+  margin: 20px 0 5px 0;
+}
 .progress-bar-container {
   width: 150px;
   padding: 5.6px 0 5.5px 0;

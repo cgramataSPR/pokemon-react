@@ -50,9 +50,9 @@ const PokeCard = ({ pokemonSearchUrl }) => {
     return (
         <div className="item centered-text">
             <div onClick={handleShow} style={{cursor: "pointer"}}>
+                <p className="capitalize pokemon-card-name ">{pokemonData.name}</p>
                 <img className="image-container" src={pokemonImg} alt="Pic not available..."/>
                 <p>#{pokemonId}</p>
-                <p className="capitalize">{pokemonData.name}</p>
             </div>
             <PokemonModal 
                 showModal={modalVisible}
