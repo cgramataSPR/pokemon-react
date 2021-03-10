@@ -31,7 +31,6 @@ const PokemonModal = ({
       <li key={entry.ability.name}>{entry.ability.name}</li>
     ));
 
-  
   return (
     <Modal
       show={showModal}
@@ -40,7 +39,7 @@ const PokemonModal = ({
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
     >
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title
           className="capitalize side-by-side"
           id="contained-modal-title-vcenter"
