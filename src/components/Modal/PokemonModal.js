@@ -1,6 +1,5 @@
 import BaseStats from "../BaseStats";
 import Modal from "react-bootstrap/Modal";
-import { useState, useEffect } from "react";
 
 const PokemonModal = ({
   showModal,
@@ -32,11 +31,11 @@ const PokemonModal = ({
       <li key={entry.ability.name}>{entry.ability.name}</li>
     ));
 
-  console.log("In Modal -showModal- check: " + showModal )
   
   return (
     <Modal
       show={showModal}
+      onHide={handleClose}
       backdrop="static"
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
@@ -71,7 +70,6 @@ const PokemonModal = ({
         </div>
       </Modal.Body>
       <Modal.Footer>
-        {/*TODO: Figure out how to close modal via button ONLY*/}
         <button className="btn" onClick={handleClose}>
           Close
         </button>

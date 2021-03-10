@@ -11,11 +11,7 @@ const PokeCard = ({ pokemonSearchUrl }) => {
     const [pokemonStatImg, setPokemonStatImg] = useState('')
     const [modalVisible, setModalVisible] = useState(false)
 
-    const handleClose = () => {
-        console.log("Incoming boolean parameter: " + modalVisible)
-        setModalVisible(false)
-        console.log("In handle close: " + modalVisible)
-    }
+    const handleClose = () => setModalVisible(false)
     const handleShow = () => setModalVisible(true)
 
     useEffect(() => {
@@ -52,8 +48,8 @@ const PokeCard = ({ pokemonSearchUrl }) => {
     }
 
     return (
-        <div className="item centered-text" onClick={handleShow}>
-            <img className="image-container" src={pokemonImg} alt="Pic not available..."/>
+        <div className="item centered-text">
+            <img className="image-container" onClick={handleShow} src={pokemonImg} alt="Pic not available..."/>
             <p>#{pokemonId}</p>
             <p className="capitalize">{pokemonData.name}</p>
             <PokemonModal 
