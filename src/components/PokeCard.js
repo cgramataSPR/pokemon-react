@@ -42,7 +42,7 @@ const PokeCard = ({ pokemonSearchUrl }) => {
             setPokemonImg(pokemonData.sprites.front_default)
             setPokemonData(pokemonData)
             setPokemonId(prefixZeroesInId(pokemonData.id))
-            setPokemonStatImg(pokemonData.sprites.other.["official-artwork"].front_default)
+            setPokemonStatImg(pokemonData.sprites.other["official-artwork"].front_default)
         })
         .catch(error => console.log(`Error: ${error}`))
     }

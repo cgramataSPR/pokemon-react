@@ -31,6 +31,10 @@ body {
 .centered-text {
   text-align: center;
 }
+.centered-close-button{
+  width: 100%;
+  align-content: center;
+}
 .flex-child {
   flex: 1;
 }
@@ -105,7 +109,7 @@ body {
   display: flex;
 }
 .stats-type-container {
-  margin: 75px 0 0 15px;
+  margin: 75px 0 0 10px;
   min-width: 400px;
 }
 .stats-name {

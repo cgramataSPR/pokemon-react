@@ -1,5 +1,5 @@
 import React from "react";
-import BaseStats from "./BaseStats";
+import BaseStats from "./InfoTabsContent/BaseStats";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 

@@ -1,4 +1,4 @@
-import InfoTabs from "../InfoTabs";
+import InfoTabs from "./ModalContent/InfoTabs";
 import Modal from "react-bootstrap/Modal";
 
 const PokemonModal = ({
@@ -12,6 +12,7 @@ const PokemonModal = ({
   const pokemonType = pokemonData.types;
   const typeColorData = require("../../Configuration/pokemon_type_color.json");
   const pokemonAbilitiesObject = pokemonData.abilities;
+  
   const pokemonAbilityNames =
     pokemonAbilitiesObject &&
     Array.from(pokemonAbilitiesObject).map((entry) => entry.ability.name);
@@ -63,9 +64,11 @@ const PokemonModal = ({
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <button className="btn" onClick={handleClose}>
-          Close
-        </button>
+        <div className="centered-close-button centered-text">
+          <button className="btn" onClick={handleClose}>
+            Close
+          </button>
+        </div>
       </Modal.Footer>
     </Modal>
   );
