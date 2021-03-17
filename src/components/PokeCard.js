@@ -9,6 +9,7 @@ const PokeCard = ({ pokemonSearchUrl }) => {
     const [pokemonId, setPokemonId] = useState('')
     const [pokemonImg, setPokemonImg] = useState('')
     const [pokemonStatImg, setPokemonStatImg] = useState('')
+    const [speciesUrl, setSpeciesUrl] = useState('')
     const [modalVisible, setModalVisible] = useState(false)
 
     const handleClose = () => setModalVisible(false)
@@ -41,12 +42,24 @@ const PokeCard = ({ pokemonSearchUrl }) => {
             const pokemonData = response.data
             setPokemonImg(pokemonData.sprites.front_default)
             setPokemonData(pokemonData)
+            setSpeciesUrl(pokemonData.species.url)
             setPokemonId(prefixZeroesInId(pokemonData.id))
             setPokemonStatImg(pokemonData.sprites.other["official-artwork"].front_default)
         })
+
+        // IS THIS PART CORRECT?
+        // .then(
+        //     await axios.get(speciesUrl)
+        //     .then((response) => {
+        //         const speciesData = response
+        //         setSpeciesData(speciesData)
+        //         console.log(speciesData)
+        //     })
+
+        // )
         .catch(error => console.log(`Error: ${error}`))
     }
-
+    
     return (
         <div className="item centered-text">
             <div onClick={handleShow} style={{cursor: "pointer"}}>
@@ -59,6 +72,7 @@ const PokeCard = ({ pokemonSearchUrl }) => {
                 pokemonId={pokemonId}
                 pokemonData={pokemonData} 
                 pokemonStatImg={pokemonStatImg}
+                pokemonSpeciesUrl={speciesUrl}
                 handleClose={handleClose}
             />
         </div>
