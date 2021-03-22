@@ -1,50 +1,86 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import ComponentIsLoading from "../../../ComponentIsLoading";
+import PokeCard from "../../../PokeCard";
 
 const EvolutionChain = ({ evolutionUrl }) => {
+  const [isLoading, setLoading] = useState(true)
   const [evolutionData, setEvolutionData] = useState({});
   const [speciesName, setSpeciesName] = useState("");
-  let evoChain = [];
+  const [evolutionChain, setEvolutionChain] = useState([]);
 
   useEffect(() => {
     setData();
-    // evoChain = mineEvolutionChain(evolutionData)
   }, []);
 
+  //Todo: Move this to a service
   const mineEvolutionChain = (evolutionResult) => {
-    let evolutionChain = [];
+    let evoChain = [];
     let evoData = evolutionResult;
 
-    while (!!evoData && evoData.hasOwnProperty("evolves_to")) {
-      let evoDetail = {};
-      let evoDetails = evoData["evolution_details"];
+    do {
+      let evoDetails = evoData['evolution_details'][0];
 
-      if (evoDetails.length !== 0) {
-        evoDetail = evoData["evolution_details"][0];
-      }
-
-      evolutionChain.push({
-        species_name: evoData.species.name,
-        min_level: !evoDetail ? 1 : evoDetail.min_level,
-        //trigger_name: !evoDetail ? null : evoDetail.trigger.name,
-        item: !evoDetail ? null : evoDetail.item,
+      evoChain.push({
+        "species_name": evoData.species.name,
+        "min_level": !evoDetails ? 1 : evoDetails.min_level,
+        "trigger_name": !evoDetails ? null : evoDetails.trigger.name,
+        "item": !evoDetails ? null : evoDetails.item
       });
-    }
 
-    return evolutionChain;
-  };
+      evoData = evoData['evolves_to'][0];
+    } while (!!evoData && evoData.hasOwnProperty('evolves_to'));
+    console.log(evoChain)
+    return evoChain
+  }
 
-  console.log(mineEvolutionChain(evolutionData));
+  const createEvolutionChainDom = (evolutionList) => {
+    const listLength = evolutionList.length - 1
+
+    return (evolutionList.map((entry, r) => {
+      if (r == listLength) {
+        return (
+            <div>
+              <PokeCard pokemonSearchUrl={`https://pokeapi.co/api/v2/pokemon/${entry.species_name}`} />
+            </div>
+        )
+      }
+      else {
+        return(
+            <div className="side-by-side">
+              <PokeCard pokemonSearchUrl={`https://pokeapi.co/api/v2/pokemon/${entry.species_name}`} />
+              <div> > </div>
+            </div>
+        )
+      }
+    }))
+  }
 
   const setData = async () => {
-    await axios.get(evolutionUrl).then((response) => {
+    await axios
+      //Todo: Figure out why a hardcoded URL works
+      // .get("https://pokeapi.co/api/v2/evolution-chain/2/")
+      .get(evolutionUrl)
+      .then((response) => {
       let evoData = response.data.chain;
+      setEvolutionChain(mineEvolutionChain(evoData))
       setEvolutionData(evoData);
       setSpeciesName(evoData.species.name);
+      setLoading(false)
     });
   };
 
-  return <div>{speciesName}</div>;
-};
+  if (isLoading){
+    return (
+        <ComponentIsLoading></ComponentIsLoading>
+    )
+  } else {
+    return (
+        <div className="side-by-side">
+          {createEvolutionChainDom(evolutionChain)}
+        </div>
+    )
+  }
+}
 
 export default EvolutionChain;

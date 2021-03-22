@@ -10,13 +10,13 @@ const BaseStats = ({ baseStats }) => {
         <div className="progress-bar-container">
           <div className="progress flex-child">
             <div
-              className="progress-bar progress-bar-striped progress-bar-animated"
-              role="progressbar"
-              aria-valuenow={entry.base_stat}
-              aria-valuemin="0"
-              aria-valuemax="200"
-              style={{ width: `${entry.base_stat / 2}%` }}
-            ></div>
+                className="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                aria-valuenow={entry.base_stat}
+                aria-valuemin="0"
+                aria-valuemax="200"
+                style={{width: `${entry.base_stat / 2}%`}}
+            />
           </div>
         </div>
       </div>

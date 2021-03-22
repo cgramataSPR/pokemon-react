@@ -2,9 +2,14 @@ import axios from 'axios'
 import "bootstrap/dist/css/bootstrap.min.css" 
 import PokemonModal from './Modal/PokemonModal'
 import { useState, useEffect } from 'react'
+import ComponentIsLoading from "./ComponentIsLoading";
 
 const PokeCard = ({ pokemonSearchUrl }) => {    
 
+    //Todo: use a loading state
+    //Todo: in here render a loading, wrap axios calls with a timer
+
+    const [isLoading, setLoading] = useState(true);
     const [pokemonData, setPokemonData] = useState({})
     const [pokemonId, setPokemonId] = useState('')
     const [pokemonImg, setPokemonImg] = useState('')
@@ -45,38 +50,35 @@ const PokeCard = ({ pokemonSearchUrl }) => {
             setSpeciesUrl(pokemonData.species.url)
             setPokemonId(prefixZeroesInId(pokemonData.id))
             setPokemonStatImg(pokemonData.sprites.other["official-artwork"].front_default)
+            setLoading(false)
         })
-
-        // IS THIS PART CORRECT?
-        // .then(
-        //     await axios.get(speciesUrl)
-        //     .then((response) => {
-        //         const speciesData = response
-        //         setSpeciesData(speciesData)
-        //         console.log(speciesData)
-        //     })
-
-        // )
         .catch(error => console.log(`Error: ${error}`))
     }
-    
-    return (
-        <div className="item centered-text">
-            <div onClick={handleShow} style={{cursor: "pointer"}}>
-                <p className="capitalize pokemon-card-name ">{pokemonData.name}</p>
-                <img className="image-container" src={pokemonImg} alt="Pic not available..."/>
-                <p>#{pokemonId}</p>
+
+    if (isLoading) {
+        return (
+            <ComponentIsLoading/>
+        )
+    }
+    else {
+        return (
+            <div className="item centered-text">
+                <div onClick={handleShow} style={{cursor: "pointer"}}>
+                    <p className="capitalize pokemon-card-name ">{pokemonData.name}</p>
+                    <img className="image-container" src={pokemonImg} alt="Pic not available..."/>
+                    <p>#{pokemonId}</p>
+                </div>
+                <PokemonModal
+                    showModal={modalVisible}
+                    pokemonId={pokemonId}
+                    pokemonData={pokemonData}
+                    pokemonStatImg={pokemonStatImg}
+                    pokemonSpeciesUrl={speciesUrl}
+                    handleClose={handleClose}
+                />
             </div>
-            <PokemonModal 
-                showModal={modalVisible}
-                pokemonId={pokemonId}
-                pokemonData={pokemonData} 
-                pokemonStatImg={pokemonStatImg}
-                pokemonSpeciesUrl={speciesUrl}
-                handleClose={handleClose}
-            />
-        </div>
-    )
+        )
+    }
 }
 
 export default PokeCard
