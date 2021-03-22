@@ -26,7 +26,7 @@ const InfoTabs = ({ baseStats, abilityNames, evolutionUrl }) => {
         <div className="stats-type-container capitalize">{mappedAbilities}</div>
       </Tab>
       <Tab eventKey="evolution" title="Evolution">
-        <div>
+        <div className="stats-type-container">
           <EvolutionChain evolutionUrl={evolutionUrl} />
         </div>
       </Tab>

@@ -127,6 +127,11 @@ body {
   margin: 0 10px 0 10px;
   vertical-align: middle;
 }
+.type-container {
+  margin: 0 5px 0 5px;
+  padding: 0 5px 0 5px;
+  border-radius: 5px;
+}
 ul {
   margin-left: 0;
   padding-left: 10px;

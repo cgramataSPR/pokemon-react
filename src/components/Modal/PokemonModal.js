@@ -46,7 +46,7 @@ const PokemonModal = ({
     pokemonType &&
     pokemonType.map((entry, index) => (
       <div
-        className="centered-text"
+        className="centered-text type-container"
         style={{ backgroundColor: typeColorData[entry.type.name] }}
         key={index}
       >
@@ -86,7 +86,7 @@ const PokemonModal = ({
               <div>
                 {pokemonData.name} #{pokemonId}
               </div>
-              <div className="capitalize no-bullets">{mappedTypes}</div>
+              <div className="capitalize no-bullets side-by-side">{mappedTypes}</div>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body className="side-by-side">
