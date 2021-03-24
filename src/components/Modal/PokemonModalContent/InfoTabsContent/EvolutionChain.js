@@ -40,15 +40,15 @@ const EvolutionChain = ({ evolutionUrl }) => {
     return (evolutionList.map((entry, r) => {
       if (r == listLength) {
         return (
-            <div>
-              <PokeCard pokemonSearchUrl={`https://pokeapi.co/api/v2/pokemon/${entry.species_name}`} />
+            <div key={entry.species_name}>
+              <PokeCard key={entry.species_name} pokemonSearchUrl={`https://pokeapi.co/api/v2/pokemon/${entry.species_name}`} />
             </div>
         )
       }
       else {
         return(
-            <div className="side-by-side">
-              <PokeCard pokemonSearchUrl={`https://pokeapi.co/api/v2/pokemon/${entry.species_name}`} />
+            <div key={entry.species_name} className="side-by-side">
+              <PokeCard key={entry.species_name} pokemonSearchUrl={`https://pokeapi.co/api/v2/pokemon/${entry.species_name}`} />
               <div> > </div>
             </div>
         )
@@ -58,8 +58,6 @@ const EvolutionChain = ({ evolutionUrl }) => {
 
   const setData = async () => {
     await axios
-      //Todo: Figure out why a hardcoded URL works
-      // .get("https://pokeapi.co/api/v2/evolution-chain/2/")
       .get(evolutionUrl)
       .then((response) => {
       let evoData = response.data.chain;

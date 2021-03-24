@@ -18,6 +18,7 @@ const PokeCard = ({ pokemonSearchUrl }) => {
     const handleClose = () => setModalVisible(false)
     const handleShow = () => setModalVisible(true)
 
+
     useEffect(() => {
         setData();
       }, []);
