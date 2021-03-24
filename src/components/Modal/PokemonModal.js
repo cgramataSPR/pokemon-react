@@ -14,14 +14,10 @@ const PokemonModal = ({
 }) => {
   const [isLoading, setLoading] = useState(true);
   const [evolutionUrl, setEvolutionUrl] = useState('');
-  const pokemonStats = pokemonData.stats;
-  const pokemonType = pokemonData.types;
   const typeColorData = require("../../Configuration/pokemon_type_color.json");
-  const pokemonAbilitiesObject = pokemonData.abilities;
-
   const pokemonAbilityNames =
-    pokemonAbilitiesObject &&
-    Array.from(pokemonAbilitiesObject).map((entry) => entry.ability.name);
+      pokemonData.abilities &&
+    Array.from(pokemonData.abilities).map((entry) => entry.ability.name);
 
   useEffect(() => {
     setData();
@@ -29,12 +25,9 @@ const PokemonModal = ({
 
   const setData = async () => {
     await axios
-      //Todo: Figure out why a hardcoded URL works
       .get(pokemonSpeciesUrl)
-      // .get("https://pokeapi.co/api/v2/pokemon-species/11/")
       .then((response) => {
         const speciesData = response.data;
-        // const speciesUrl = speciesData.evolution_chain.url;
         setEvolutionUrl(speciesData.evolution_chain.url)
         setLoading(false)
       })
@@ -43,8 +36,8 @@ const PokemonModal = ({
 
   //TODO: extract this to its own component?
   const mappedTypes =
-    pokemonType &&
-    pokemonType.map((entry, index) => (
+      pokemonData.types &&
+      pokemonData.types.map((entry, index) => (
       <div
         className="centered-text type-container"
         style={{ backgroundColor: typeColorData[entry.type.name] }}
@@ -95,7 +88,7 @@ const PokemonModal = ({
             </div>
             <div>
               <InfoTabs
-                  baseStats={pokemonStats}
+                  baseStats={pokemonData.stats}
                   abilityNames={pokemonAbilityNames}
                   evolutionUrl={evolutionUrl}
               />

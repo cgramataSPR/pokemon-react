@@ -4,15 +4,13 @@ import PokemonModal from './Modal/PokemonModal'
 import { useState, useEffect } from 'react'
 import ComponentIsLoading from "./ComponentIsLoading";
 
-const PokeCard = ({ pokemonSearchUrl }) => {    
-
-    //Todo: use a loading state
-    //Todo: in here render a loading, wrap axios calls with a timer
+const PokeCard = ({ pokemonSearchUrl }) => {
 
     const [isLoading, setLoading] = useState(true);
-    const [pokemonData, setPokemonData] = useState({})
+    //Todo: in here render a loading, wrap axios calls with a timer
     const [pokemonId, setPokemonId] = useState('')
     const [pokemonImg, setPokemonImg] = useState('')
+    const [pokemonData, setPokemonData] = useState({})
     const [pokemonStatImg, setPokemonStatImg] = useState('')
     const [speciesUrl, setSpeciesUrl] = useState('')
     const [modalVisible, setModalVisible] = useState(false)
