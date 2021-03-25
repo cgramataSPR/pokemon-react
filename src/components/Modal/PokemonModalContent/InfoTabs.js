@@ -15,6 +15,7 @@ const InfoTabs = ({ baseStats, abilityNames, evolutionUrl }) => {
     </div>
   ));
 
+  console.log("from infotab - evolutionUrl: ", evolutionUrl)
   return (
     <Tabs activeKey={key} onSelect={(key) => setKey(key)}>
       <Tab eventKey="stats" title="Stats">
@@ -25,11 +26,11 @@ const InfoTabs = ({ baseStats, abilityNames, evolutionUrl }) => {
       <Tab eventKey="abilities" title="Abilities">
         <div className="stats-type-container capitalize">{mappedAbilities}</div>
       </Tab>
-      <Tab eventKey="evolution" title="Evolution">
-        <div className="stats-type-container">
-          <EvolutionChain evolutionUrl={evolutionUrl} />
-        </div>
-      </Tab>
+      {/*<Tab eventKey="evolution" title="Evolution">*/}
+      {/*  <div className="stats-type-container">*/}
+      {/*    <EvolutionChain evolutionUrl={evolutionUrl} />*/}
+      {/*  </div>*/}
+      {/*</Tab>*/}
     </Tabs>
   );
 };
