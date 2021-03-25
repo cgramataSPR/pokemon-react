@@ -35,13 +35,39 @@ function App() {
                   pokemonStatImg: action.pokemonStatImg,
                   pokemonSpeciesUrl: action.pokemonSpeciesUrl,
                   modalIsLoading: action.modalIsLoading
+              };
+          case 'closeModal':
+              return {
+                  pokemonId: '',
+                  pokemonData: null,
+                  pokemonStatImg: '',
+                  pokemonSpeciesUrl: '',
+                  modalIsLoading: true
+              }
+          default:
+              return {
+                  pokemonId: '',
+                  pokemonData: null,
+                  pokemonStatImg: '',
+                  pokemonSpeciesUrl: '',
+                  modalIsLoading: true
               }
       }
   }
 
   const [modalState, modalDispatch] = useReducer(modalReducer, modalInitialState);
 
-  const handleClose = () => setModalVisible(false)
+  const handleClose = () => {
+      setModalVisible(false)
+      modalDispatch({
+          type: 'closeModal',
+          pokemonId: '',
+          pokemonData: null,
+          pokemonStatImg: '',
+          pokemonSpeciesUrl: '',
+          modalIsLoading: true
+      })
+  }
   const handleShow = () => setModalVisible(true)
 
   useEffect(() => {
@@ -107,7 +133,6 @@ function App() {
   };
 
   const getPokemonModalData = async (url) => {
-    console.log("from app - getPokemonModalData: ", url)
     await axios.get(url)
         .then((response) => {
           const pokemonDataResult = response.data
