@@ -5,20 +5,17 @@ import axios from "axios";
 import ComponentIsLoading from "../ComponentIsLoading";
 
 const PokemonModal = ({
+  modalState,
   showModal,
-  pokemonId,
-  pokemonData,
-  pokemonStatImg,
-  pokemonSpeciesUrl,
   handleClose,
 }) => {
-  const [isLoading, setLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(modalIsLoading)
   const [evolutionUrl, setEvolutionUrl] = useState('');
 
   const typeColorData = require("../../Configuration/pokemon_type_color.json");
   const pokemonAbilityNames =
-      pokemonData.abilities &&
-    Array.from(pokemonData.abilities).map((entry) => entry.ability.name);
+      modalState.pokemonData.abilities &&
+    Array.from(modalState.pokemonData.abilities).map((entry) => entry.ability.name);
 
   useEffect(() => {
     setData();
@@ -26,19 +23,20 @@ const PokemonModal = ({
 
   const setData = async () => {
     await axios
-      .get(pokemonSpeciesUrl)
+      .get(modalState.pokemonSpeciesUrl)
       .then((response) => {
         const speciesData = response.data;
         setEvolutionUrl(speciesData.evolution_chain.url)
-        setLoading(false)
       })
       .catch((error) => console.log(`Error: ${error}`));
   };
 
+  console.log("From pokemon modal - evolutionUrl: ", evolutionUrl)
+
   //TODO: extract this to its own component?
   const mappedTypes =
-      pokemonData.types &&
-      pokemonData.types.map((entry, index) => (
+      modalState.pokemonData.types &&
+      modalState.pokemonData.types.map((entry, index) => (
       <div
         className="centered-text type-container"
         style={{ backgroundColor: typeColorData[entry.type.name] }}
@@ -48,7 +46,7 @@ const PokemonModal = ({
       </div>
     ));
 
-  if (isLoading) {
+  if (modalState.modalIsLoading) {
     return (
         <Modal
             show={showModal}
@@ -58,6 +56,7 @@ const PokemonModal = ({
             aria-labelledby="contained-modal-title-vcenter"
         >
           <Modal.Body>
+            From Modal
             <ComponentIsLoading/>
           </Modal.Body>
         </Modal>
@@ -78,18 +77,18 @@ const PokemonModal = ({
                 id="contained-modal-title-vcenter"
             >
               <div>
-                {pokemonData.name} #{pokemonId}
+                {modalState.pokemonData.name} #{modalState.pokemonId}
               </div>
               <div className="capitalize no-bullets side-by-side">{mappedTypes}</div>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body className="side-by-side">
             <div>
-              <img src={pokemonStatImg} alt="Pic not available..."/>
+              <img src={modalState.pokemonStatImg} alt="Pic not available..."/>
             </div>
             <div>
               <InfoTabs
-                  baseStats={pokemonData.stats}
+                  baseStats={modalState.pokemonData.stats}
                   abilityNames={pokemonAbilityNames}
                   evolutionUrl={evolutionUrl}
               />
