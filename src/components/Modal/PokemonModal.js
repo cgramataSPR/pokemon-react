@@ -31,8 +31,6 @@ const PokemonModal = ({
       .catch((error) => console.log(`Error: ${error}`));
   };
 
-  console.log("From pokemon modal - evolutionUrl: ", evolutionUrl)
-
   //TODO: extract this to its own component?
   const mappedTypes =
       modalState.pokemonData.types &&
@@ -86,13 +84,13 @@ const PokemonModal = ({
             <div>
               <img src={modalState.pokemonStatImg} alt="Pic not available..."/>
             </div>
-            <div>
+            {evolutionUrl !== '' ? (<div>
               <InfoTabs
                   baseStats={modalState.pokemonData.stats}
                   abilityNames={pokemonAbilityNames}
                   evolutionUrl={evolutionUrl}
               />
-            </div>
+            </div>): null}
           </Modal.Body>
           <Modal.Footer>
             <div className="centered-close-button centered-text">

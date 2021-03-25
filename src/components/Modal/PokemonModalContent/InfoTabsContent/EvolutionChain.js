@@ -30,7 +30,6 @@ const EvolutionChain = ({ evolutionUrl }) => {
 
       evoData = evoData['evolves_to'][0];
     } while (!!evoData && evoData.hasOwnProperty('evolves_to'));
-    console.log(evoChain)
     return evoChain
   }
 
