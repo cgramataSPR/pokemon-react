@@ -8,6 +8,8 @@ const PokemonModal = ({
   modalState,
   showModal,
   handleClose,
+  getPokemonModalData
+
 }) => {
   // const [isLoading, setIsLoading] = useState(modalIsLoading)
   const [evolutionUrl, setEvolutionUrl] = useState('');
@@ -89,6 +91,7 @@ const PokemonModal = ({
                   baseStats={modalState.pokemonData.stats}
                   abilityNames={pokemonAbilityNames}
                   evolutionUrl={evolutionUrl}
+                  getPokemonModalData={getPokemonModalData}
               />
             </div>): null}
           </Modal.Body>

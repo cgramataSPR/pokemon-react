@@ -6,7 +6,7 @@ import Tabs from "react-bootstrap/Tabs";
 
 import { useState } from "react";
 
-const InfoTabs = ({ baseStats, abilityNames, evolutionUrl }) => {
+const InfoTabs = ({ baseStats, abilityNames, evolutionUrl, getPokemonModalData }) => {
   const [key, setKey] = useState("stats");
 
   const mappedAbilities = abilityNames.map((entry) => (
@@ -27,7 +27,7 @@ const InfoTabs = ({ baseStats, abilityNames, evolutionUrl }) => {
       </Tab>
       <Tab eventKey="evolution" title="Evolution">
         <div className="stats-type-container">
-          <EvolutionChain evolutionUrl={evolutionUrl} />
+          <EvolutionChain evolutionUrl={evolutionUrl} getPokemonModalData={getPokemonModalData} />
         </div>
       </Tab>
     </Tabs>

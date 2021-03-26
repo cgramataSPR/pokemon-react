@@ -187,6 +187,7 @@ function App() {
             <PokemonModal
                 modalState={modalState}
                 showModal={modalVisible}
+                getPokemonModalData={getPokemonModalData}
                 handleClose={handleClose}
             />
           </div>) : null}
