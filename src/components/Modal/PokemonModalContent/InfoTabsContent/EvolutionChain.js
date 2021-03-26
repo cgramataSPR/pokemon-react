@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useState, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import ComponentIsLoading from "../../../ComponentIsLoading";
 import PokeCard from "../../../PokeCard";
 
-const EvolutionChain = ({ evolutionUrl }) => {
+const EvolutionChain = ({ evolutionUrl, getPokemonModalData }) => {
 
   const evoChainInitialState = {
     pokemonName: '',
@@ -61,21 +61,20 @@ const EvolutionChain = ({ evolutionUrl }) => {
     const listLength = evolutionList.length - 1
 
     return (evolutionList.map((entry, r) => {
-      if (r == listLength) {
-        return (
-            <div key={entry.species_name}>
-              <PokeCard key={entry.species_name} pokemonSearchUrl={`https://pokeapi.co/api/v2/pokemon/${entry.species_name}`} />
-            </div>
-        )
-      }
-      else {
-        return(
-            <div key={entry.species_name} className="side-by-side">
-              <PokeCard key={entry.species_name} pokemonSearchUrl={`https://pokeapi.co/api/v2/pokemon/${entry.species_name}`} />
-              <div> > </div>
-            </div>
-        )
-      }
+      return r === listLength ? (
+          <div key={entry.species_name}>
+            <PokeCard key={entry.species_name}
+                      onClick={getPokemonModalData}
+                      pokemonSearchUrl={`https://pokeapi.co/api/v2/pokemon/${entry.species_name}`}/>
+          </div>
+      ) : (
+          <div key={entry.species_name} className="side-by-side">
+            <PokeCard key={entry.species_name}
+                      onClick={getPokemonModalData}
+                      pokemonSearchUrl={`https://pokeapi.co/api/v2/pokemon/${entry.species_name}`}/>
+            <div> ></div>
+          </div>
+      );
     }))
   }
 
@@ -98,7 +97,7 @@ const EvolutionChain = ({ evolutionUrl }) => {
 
   if (evoChainState.isLoading){
     return (
-        <ComponentIsLoading></ComponentIsLoading>
+        <ComponentIsLoading/>
     )
   } else {
     return (
