@@ -93,7 +93,7 @@ const PokemonModal = ({
                   evolutionUrl={evolutionUrl}
                   getPokemonModalData={getPokemonModalData}
               />
-            </div>): null}
+            </div>): <ComponentIsLoading/>}
           </Modal.Body>
           <Modal.Footer>
             <div className="centered-close-button centered-text">
