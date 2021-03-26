@@ -1,13 +1,37 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import ComponentIsLoading from "../../../ComponentIsLoading";
 import PokeCard from "../../../PokeCard";
 
 const EvolutionChain = ({ evolutionUrl }) => {
-  const [isLoading, setLoading] = useState(true)
-  const [evolutionData, setEvolutionData] = useState({});
-  const [speciesName, setSpeciesName] = useState("");
-  const [evolutionChain, setEvolutionChain] = useState([]);
+
+  const evoChainInitialState = {
+    pokemonName: '',
+    evolutionData: null,
+    evolutionChain: null,
+    isLoading: true
+  }
+
+  const evoChainReducer = (state, action) => {
+    switch (action.type) {
+      case 'initialLoad':
+        return {
+          pokemonName: action.pokemonName,
+          evolutionData: action.evolutionData,
+          evolutionChain: action.evolutionChain,
+          isLoading: false
+        }
+      default:
+        return{
+          pokemonName: '',
+          evolutionData: null,
+          evolutionChain: null,
+          isLoading: true
+        }
+    }
+  }
+
+  const [evoChainState, evoChainDispatch] = useReducer(evoChainReducer, evoChainInitialState)
 
   useEffect(() => {
     setData();
@@ -59,22 +83,27 @@ const EvolutionChain = ({ evolutionUrl }) => {
     await axios
       .get(evolutionUrl)
       .then((response) => {
-      let evoData = response.data.chain;
-      setEvolutionChain(mineEvolutionChain(evoData))
-      setEvolutionData(evoData);
-      setSpeciesName(evoData.species.name);
-      setLoading(false)
+      const evoData = response.data.chain;
+      evoChainDispatch(
+          {
+            type: 'initialLoad',
+            pokemonName: evoData.species.name,
+            evolutionData: evoData,
+            evolutionChain: mineEvolutionChain(evoData),
+            isLoading: true
+          }
+      )
     });
   };
 
-  if (isLoading){
+  if (evoChainState.isLoading){
     return (
         <ComponentIsLoading></ComponentIsLoading>
     )
   } else {
     return (
         <div className="side-by-side">
-          {createEvolutionChainDom(evolutionChain)}
+          {createEvolutionChainDom(evoChainState.evolutionChain)}
         </div>
     )
   }
