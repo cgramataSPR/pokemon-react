@@ -3,6 +3,7 @@ import { useState, useEffect, useReducer } from "react";
 import PokeCard from "./components/PokeCard";
 import ComponentIsLoading from "./components/ComponentIsLoading";
 import PokemonModal from "./components/Modal/PokemonModal";
+import StylingService from "./service/stylingService";
 
 function App() {
   const [cardChosen, setCardChosen] = useState(false)
@@ -74,23 +75,6 @@ function App() {
     getGeneralPokemon(urlToSearch);
   }, []);
 
-  const prefixZeroesInId = (pokeId) => {
-    const idLength = pokeId.toString().length
-
-    if(idLength < 1) {
-      return ("...id not found...")
-    }
-    if(idLength === 1) {
-      return("00"+pokeId)
-    }
-    if(idLength === 2) {
-      return("0"+pokeId)
-    }
-    if(idLength >= 3) {
-      return(pokeId)
-    }
-  }
-
   const checkNext = (url) => {
     if (url === null && prevUrl !== "") {
       setNextUrl("");
@@ -139,7 +123,7 @@ function App() {
             modalDispatch(
               {
                   type: 'getModalData',
-                  pokemonId: prefixZeroesInId(pokemonDataResult.id),
+                  pokemonId: StylingService.prefixZeroesInId(pokemonDataResult.id),
                   pokemonData: pokemonDataResult,
                   pokemonStatImg: pokemonDataResult.sprites.other["official-artwork"].front_default,
                   pokemonSpeciesUrl: pokemonDataResult.species.url,

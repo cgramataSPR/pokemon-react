@@ -2,6 +2,7 @@ import axios from 'axios'
 import "bootstrap/dist/css/bootstrap.min.css" 
 import { useState, useEffect } from 'react'
 import ComponentIsLoading from "./ComponentIsLoading";
+import StylingService from "../service/stylingService";
 
 const PokeCard = ({ onClick, pokemonSearchUrl }) => {
 
@@ -15,28 +16,11 @@ const PokeCard = ({ onClick, pokemonSearchUrl }) => {
         setData();
       }, []);
 
-    const prefixZeroesInId = (pokeId) => {
-        const idLength = pokeId.toString().length
-
-        if(idLength < 1) {
-            return ("...id not found...")
-        }
-        if(idLength === 1) {
-            return("00"+pokeId)
-        }
-        if(idLength === 2) {
-            return("0"+pokeId)
-        }
-        if(idLength >= 3) {
-            return(pokeId)
-        }
-    }
-
     const setData = async() => {
         await axios.get(pokemonSearchUrl)
         .then((response) => {
             const pokemonData = response.data
-            setPokemonId(prefixZeroesInId(pokemonData.id))
+            setPokemonId(StylingService.prefixZeroesInId(pokemonData.id))
             setPokemonImg(pokemonData.sprites.front_default)
             setPokemonData(pokemonData)
             setLoading(false)
