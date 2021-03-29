@@ -164,7 +164,7 @@ function App() {
           </div>
           <div className="grid">
             {Array.from(pokemonGroup).map((pokemon) => (
-                <PokeCard key={pokemon.name} onClick={getPokemonModalData} pokemonSearchUrl={pokemon.url} />
+                <PokeCard key={pokemon.name} getPokemonModalData={getPokemonModalData} pokemonSearchUrl={pokemon.url} />
             ))}
           </div>
           {modalState.pokemonData !== null ? (<div>
