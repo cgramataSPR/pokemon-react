@@ -64,13 +64,13 @@ const EvolutionChain = ({ evolutionUrl, getPokemonModalData }) => {
       return r === listLength ? (
           <div key={entry.species_name}>
             <PokeCard key={entry.species_name}
-                      onClick={getPokemonModalData}
+                      getPokemonModalData={getPokemonModalData}
                       pokemonSearchUrl={`https://pokeapi.co/api/v2/pokemon/${entry.species_name}`}/>
           </div>
       ) : (
           <div key={entry.species_name} className="side-by-side">
             <PokeCard key={entry.species_name}
-                      onClick={getPokemonModalData}
+                      getPokemonModalData={getPokemonModalData}
                       pokemonSearchUrl={`https://pokeapi.co/api/v2/pokemon/${entry.species_name}`}/>
             <div> ></div>
           </div>

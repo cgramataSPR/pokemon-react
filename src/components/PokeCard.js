@@ -1,16 +1,40 @@
 import axios from 'axios'
 import "bootstrap/dist/css/bootstrap.min.css" 
-import { useState, useEffect } from 'react'
+import { useEffect, useReducer } from 'react'
+
 import ComponentIsLoading from "./ComponentIsLoading";
 import StylingService from "../service/stylingService";
 
-const PokeCard = ({ onClick, pokemonSearchUrl }) => {
+const PokeCard = ({ getPokemonModalData, pokemonSearchUrl }) => {
 
-    const [isLoading, setLoading] = useState(true);
+    const pokeCardInitialState = {
+        pokemonId: '',
+        pokemonImg: '',
+        pokemonData: {},
+        isLoading: true
+    }
+
     //Todo: in here render a loading, wrap axios calls with a timer
-    const [pokemonId, setPokemonId] = useState('')
-    const [pokemonImg, setPokemonImg] = useState('')
-    const [pokemonData, setPokemonData] = useState({})
+    const pokeCardReducer = (state, action) => {
+        switch (action.type) {
+            case 'initialLoad':
+                return{
+                    pokemonId: action.pokemonId,
+                    pokemonImg: action.pokemonImg,
+                    pokemonData: action.pokemonData,
+                    isLoading: action.isLoading
+                }
+            default:
+                return{
+                    pokemonId: '',
+                    pokemonImg: '',
+                    pokemonData: {},
+                    isLoading: true
+                }
+        }
+    }
+
+    const [pokeCardState, pokeCardDispatch] = useReducer(pokeCardReducer, pokeCardInitialState);
 
     useEffect(() => {
         setData();
@@ -20,30 +44,32 @@ const PokeCard = ({ onClick, pokemonSearchUrl }) => {
         await axios.get(pokemonSearchUrl)
         .then((response) => {
             const pokemonData = response.data
-            setPokemonId(StylingService.prefixZeroesInId(pokemonData.id))
-            setPokemonImg(pokemonData.sprites.front_default)
-            setPokemonData(pokemonData)
-            setLoading(false)
+            pokeCardDispatch({
+                type:'initialLoad',
+                pokemonId: StylingService.prefixZeroesInId(pokemonData.id),
+                pokemonImg: pokemonData.sprites.front_default,
+                pokemonData: pokemonData,
+                isLoading: false
+            })
+            console.log(pokemonData.id)
         })
         .catch(error => console.log(`Error: ${error}`))
     }
 
-    if (isLoading) {
+    if (pokeCardState.isLoading) {
         return (
             <ComponentIsLoading/>
         )
     }
-    else {
-        return (
-            <div className="item centered-text">
-                <div onClick={() => onClick(pokemonSearchUrl)} style={{cursor: "pointer"}}>
-                    <p className="capitalize pokemon-card-name ">{pokemonData.name}</p>
-                    <img className="image-container" src={pokemonImg} alt="Pic not available..."/>
-                    <p>#{pokemonId}</p>
-                </div>
+    return (
+        <div className="item centered-text">
+            <div onClick={() => getPokemonModalData(pokemonSearchUrl)} style={{cursor: "pointer"}}>
+                <p className="capitalize pokemon-card-name ">{pokeCardState.pokemonData.name}</p>
+                <img className="image-container" src={pokeCardState.pokemonImg} alt="Pic not available..."/>
+                <p>#{pokeCardState.pokemonId}</p>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 export default PokeCard

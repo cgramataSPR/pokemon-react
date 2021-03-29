@@ -11,7 +11,6 @@ const PokemonModal = ({
   getPokemonModalData
 
 }) => {
-  // const [isLoading, setIsLoading] = useState(modalIsLoading)
   const [evolutionUrl, setEvolutionUrl] = useState('');
 
   const typeColorData = require("../../Configuration/pokemon_type_color.json");
