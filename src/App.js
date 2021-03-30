@@ -163,7 +163,7 @@ function App() {
             </button>
           </div>
           <div className="grid">
-            {Array.from(pokemonGroup).map((pokemon) => (
+            {pokemonGroup.map((pokemon) => (
                 <PokeCard key={pokemon.name} getPokemonModalData={getPokemonModalData} pokemonSearchUrl={pokemon.url} />
             ))}
           </div>

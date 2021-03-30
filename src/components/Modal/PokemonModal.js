@@ -16,7 +16,7 @@ const PokemonModal = ({
   const typeColorData = require("../../Configuration/pokemon_type_color.json");
   const pokemonAbilityNames =
       modalState.pokemonData.abilities &&
-    Array.from(modalState.pokemonData.abilities).map((entry) => entry.ability.name);
+    modalState.pokemonData.abilities.map((entry) => entry.ability.name);
 
   useEffect(() => {
     setData();
