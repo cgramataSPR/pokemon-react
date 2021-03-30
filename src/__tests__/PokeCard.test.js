@@ -1,10 +1,10 @@
 import React from "react";
 import axios from 'axios'
-import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import PokeCard from "../components/PokeCard";
 
-import { getQueriesForElement } from "@testing-library/react"
+import { render, waitFor, screen } from "@testing-library/react"
+import "@testing-library/jest-dom/extend-expect"
 
 let container = null;
 const fakePokemonData = {
@@ -23,19 +23,6 @@ const expectedPokemonDataRendered = {
     }
 }
 
-beforeEach(() => {
-    // setup a DOM element as a render target
-    container = document.createElement("div");
-    document.body.appendChild(container);
-});
-
-afterEach(() => {
-    // cleanup on exiting
-    unmountComponentAtNode(container);
-    container.remove();
-    container = null;
-});
-
 describe("pokeCard", () => {
     it('fetches Pokemon data by given URL', async () => {
         jest.spyOn(axios, 'get').mockImplementation(() =>
@@ -44,28 +31,27 @@ describe("pokeCard", () => {
             })
         );
 
-        await act(async () => {
-            render(<PokeCard pokemonSearchUrl={'https://pokeapi.co/api/v2/pokemon/1'}/>, container)
-        })
+        render(<PokeCard pokemonSearchUrl={'https://pokeapi.co/api/v2/pokemon/1'}/>)
 
-        expect(axios.get).toBeCalledWith("https://pokeapi.co/api/v2/pokemon/1");
-
+        await waitFor(() => {
+            expect(axios.get).toBeCalledWith("https://pokeapi.co/api/v2/pokemon/1")
+        });
     });
 
     it("renders fetched Pokemon data", async () => {
         jest.spyOn(axios, 'get').mockImplementation(() =>
             Promise.resolve({
-                json: () => Promise.resolve(fakePokemonData)
+               data: fakePokemonData
             })
         );
 
-        await act(async () => {
-            render(<PokeCard pokemonSearchUrl={'https://pokeapi.co/api/v2/pokemon/1'}/>, container)
+        render(<PokeCard pokemonSearchUrl={'https://pokeapi.co/api/v2/pokemon/1'}/>)
+
+        expect(screen.getByText("Loading...")).toBeInTheDocument()
+        await waitFor(() => {
+            expect(screen.queryByText("Loading...")).not.toBeInTheDocument()
         })
-
-        const { getByText } = getQueriesForElement(container);
-
-        // getByText("Loading...")
-        getByText(expectedPokemonDataRendered.id)
+        expect(screen.getByText(/001/)).toBeInTheDocument()
+        screen.debug()
     });
 })
