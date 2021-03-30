@@ -35,7 +35,7 @@ const pokeCardReducer = (state, action) => {
 
 const PokeCard = ({ getPokemonModalData, pokemonSearchUrl }) => {
 
-    const[isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true)
     const [pokeCardState, pokeCardDispatch] = useReducer(pokeCardReducer, pokeCardInitialState);
 
     useEffect(() => {
