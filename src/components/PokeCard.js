@@ -1,39 +1,41 @@
 import axios from 'axios'
 import "bootstrap/dist/css/bootstrap.min.css" 
-import { useEffect, useReducer } from 'react'
+import { useEffect, useState, useReducer } from 'react'
 
 import ComponentIsLoading from "./ComponentIsLoading";
 import StylingService from "../service/stylingService";
 
+
+const pokeCardInitialState = {
+    pokemonId: '',
+    pokemonImg: '',
+    pokemonData: {},
+    // isLoading: true
+}
+
+//Todo: in here render a loading, wrap axios calls with a timer
+const pokeCardReducer = (state, action) => {
+    switch (action.type) {
+        case 'initialLoad':
+            return{
+                pokemonId: action.pokemonId,
+                pokemonImg: action.pokemonImg,
+                pokemonData: action.pokemonData,
+                // isLoading: action.isLoading
+            }
+        default:
+            return{
+                pokemonId: '',
+                pokemonImg: '',
+                pokemonData: {},
+                // isLoading: true
+            }
+    }
+}
+
 const PokeCard = ({ getPokemonModalData, pokemonSearchUrl }) => {
 
-    const pokeCardInitialState = {
-        pokemonId: '',
-        pokemonImg: '',
-        pokemonData: {},
-        isLoading: true
-    }
-
-    //Todo: in here render a loading, wrap axios calls with a timer
-    const pokeCardReducer = (state, action) => {
-        switch (action.type) {
-            case 'initialLoad':
-                return{
-                    pokemonId: action.pokemonId,
-                    pokemonImg: action.pokemonImg,
-                    pokemonData: action.pokemonData,
-                    isLoading: action.isLoading
-                }
-            default:
-                return{
-                    pokemonId: '',
-                    pokemonImg: '',
-                    pokemonData: {},
-                    isLoading: true
-                }
-        }
-    }
-
+    const[isLoading, setIsLoading] = useState(true)
     const [pokeCardState, pokeCardDispatch] = useReducer(pokeCardReducer, pokeCardInitialState);
 
     useEffect(() => {
@@ -49,14 +51,14 @@ const PokeCard = ({ getPokemonModalData, pokemonSearchUrl }) => {
                 pokemonId: StylingService.prefixZeroesInId(pokemonData.id),
                 pokemonImg: pokemonData.sprites.front_default,
                 pokemonData: pokemonData,
-                isLoading: false
+                // isLoading: false
             })
-            console.log(pokemonData.id)
+            setIsLoading(false)
         })
         .catch(error => console.log(`Error: ${error}`))
     }
 
-    if (pokeCardState.isLoading) {
+    if (isLoading) {
         return (
             <ComponentIsLoading/>
         )
