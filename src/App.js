@@ -5,6 +5,43 @@ import ComponentIsLoading from "./components/ComponentIsLoading";
 import PokemonModal from "./components/Modal/PokemonModal";
 import StylingService from "./service/stylingService";
 
+const modalInitialState = {
+    pokemonId: '',
+    pokemonData: null,
+    pokemonStatImg: '',
+    pokemonSpeciesUrl: '',
+    modalIsLoading: true,
+}
+
+const modalReducer = (state, action) => {
+    switch (action.type) {
+        case 'getModalData':
+            return {
+                pokemonId: action.pokemonId,
+                pokemonData: action.pokemonData,
+                pokemonStatImg: action.pokemonStatImg,
+                pokemonSpeciesUrl: action.pokemonSpeciesUrl,
+                modalIsLoading: action.modalIsLoading
+            };
+        case 'closeModal':
+            return {
+                pokemonId: '',
+                pokemonData: null,
+                pokemonStatImg: '',
+                pokemonSpeciesUrl: '',
+                modalIsLoading: true
+            }
+        default:
+            return {
+                pokemonId: '',
+                pokemonData: null,
+                pokemonStatImg: '',
+                pokemonSpeciesUrl: '',
+                modalIsLoading: true
+            }
+    }
+}
+
 function App() {
   const [cardChosen, setCardChosen] = useState(false)
   const [isLoading, setLoading] = useState(true);
@@ -17,45 +54,6 @@ function App() {
 
   //Pokemon Modal related hooks
   const [modalVisible, setModalVisible] = useState(false)
-
-
-  const modalInitialState = {
-      pokemonId: '',
-      pokemonData: null,
-      pokemonStatImg: '',
-      pokemonSpeciesUrl: '',
-      modalIsLoading: true,
-  }
-
-  const modalReducer = (state, action) => {
-      switch (action.type) {
-          case 'getModalData':
-              return {
-                  pokemonId: action.pokemonId,
-                  pokemonData: action.pokemonData,
-                  pokemonStatImg: action.pokemonStatImg,
-                  pokemonSpeciesUrl: action.pokemonSpeciesUrl,
-                  modalIsLoading: action.modalIsLoading
-              };
-          case 'closeModal':
-              return {
-                  pokemonId: '',
-                  pokemonData: null,
-                  pokemonStatImg: '',
-                  pokemonSpeciesUrl: '',
-                  modalIsLoading: true
-              }
-          default:
-              return {
-                  pokemonId: '',
-                  pokemonData: null,
-                  pokemonStatImg: '',
-                  pokemonSpeciesUrl: '',
-                  modalIsLoading: true
-              }
-      }
-  }
-
   const [modalState, modalDispatch] = useReducer(modalReducer, modalInitialState);
 
   const handleClose = () => {
