@@ -1,6 +1,5 @@
 import React from "react";
-import axios from 'axios'
-import { act } from "react-dom/test-utils";
+import axios from 'axios';
 import PokeCard from "../components/PokeCard";
 
 import { render, waitFor, screen } from "@testing-library/react"
