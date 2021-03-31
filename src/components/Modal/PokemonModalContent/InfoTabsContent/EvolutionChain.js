@@ -3,33 +3,33 @@ import { useEffect, useReducer } from "react";
 import ComponentIsLoading from "../../../ComponentIsLoading";
 import PokeCard from "../../../PokeCard";
 
+const evoChainInitialState = {
+  pokemonName: '',
+  evolutionData: null,
+  evolutionChain: null,
+  isLoading: true
+}
+
+const evoChainReducer = (state, action) => {
+  switch (action.type) {
+    case 'initialLoad':
+      return {
+        pokemonName: action.pokemonName,
+        evolutionData: action.evolutionData,
+        evolutionChain: action.evolutionChain,
+        isLoading: false
+      }
+    default:
+      return{
+        pokemonName: '',
+        evolutionData: null,
+        evolutionChain: null,
+        isLoading: true
+      }
+  }
+}
+
 const EvolutionChain = ({ evolutionUrl, getPokemonModalData }) => {
-
-  const evoChainInitialState = {
-    pokemonName: '',
-    evolutionData: null,
-    evolutionChain: null,
-    isLoading: true
-  }
-
-  const evoChainReducer = (state, action) => {
-    switch (action.type) {
-      case 'initialLoad':
-        return {
-          pokemonName: action.pokemonName,
-          evolutionData: action.evolutionData,
-          evolutionChain: action.evolutionChain,
-          isLoading: false
-        }
-      default:
-        return{
-          pokemonName: '',
-          evolutionData: null,
-          evolutionChain: null,
-          isLoading: true
-        }
-    }
-  }
 
   const [evoChainState, evoChainDispatch] = useReducer(evoChainReducer, evoChainInitialState)
 
@@ -57,6 +57,7 @@ const EvolutionChain = ({ evolutionUrl, getPokemonModalData }) => {
     return evoChain
   }
 
+  //Todo: Need to modify to account for pokemon that evolve into different pokemon depending on stones (ie: Eevee)
   const createEvolutionChainDom = (evolutionList) => {
     const listLength = evolutionList.length - 1
 
