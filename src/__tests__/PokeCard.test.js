@@ -51,6 +51,7 @@ describe("pokeCard", () => {
             expect(screen.queryByText("Loading...")).not.toBeInTheDocument()
         })
         expect(screen.getByText(/001/)).toBeInTheDocument()
+        expect(screen.getByText(/bulbasaur/)).toBeInTheDocument()
         screen.debug()
     });
 })
